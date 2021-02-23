@@ -43,3 +43,8 @@
 	autoStash = true
 [interactive]
   diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
