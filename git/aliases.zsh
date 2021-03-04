@@ -3,7 +3,7 @@ alias gitonelineall="git log --graph --decorate --all --pretty=format:\"%C(auto)
 alias gitpretty="git log --graph --decorate --name-status"
 alias gitprettyall="git log --graph --decorate --name-status --all"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
-alias gitpush="git push origin HEAD"
+alias gitpush="git push -u origin HEAD"
 alias gitwip="git commit --no-verify -a -m 'WIP DO NOT COMMIT'"
 alias cdroot="cd $(git root)"
 
