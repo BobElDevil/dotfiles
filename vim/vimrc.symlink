@@ -93,4 +93,5 @@ Plug 'roblillack/vim-bufferlist'
 Plug 'tpope/vim-fugitive'
 Plug 'unblevable/quick-scope'
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
