@@ -9,7 +9,7 @@ alias cdroot="cd $(git root)"
 
 # Todo Make these legit 'aliases', with inline shell scripts
 function gitmergecommit() { git log $1..HEAD --ancestry-path --merges --reverse }
-function gitmerged() { git branch --merged $@ | sed -e '/^*/d' }
+function gitmerged() { git branch --merged $@ | sed -e '/^*/d' | sed -e '/^+/d' }
 function gitshowsvn() { git show `git svn find-rev r$1` }
 function gitsvnrebase() {
     if [[ $1 != "-l" ]]; then
@@ -61,7 +61,7 @@ function gitcleanup() {
     git remote prune origin
 
     echo "=== Cleaning Local Branches ========="
-    except_branches=('"\*"' '" main$"')
+    except_branches=('"\*"' '"\+"' '" main$"')
     command="git branch --merged"
     for branch in $except_branches; do
         command="$command | grep -v $branch"
