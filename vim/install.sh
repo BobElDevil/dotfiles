@@ -1,3 +1,10 @@
 #!/bin/bash 
+brew install neovim
+brew install ripgrep
 
-vim -E -s -c "source ~/.vimrc" -c "PlugInstall --sync" -c qa &> /dev/null < /dev/tty
+mkdir -p ~/.config/nvim
+cp "$ZSH/vim/init.vim" ~/.config/nvim/
+
+pip3 install --user pynvim
+
+nvim +PlugInstall +qall

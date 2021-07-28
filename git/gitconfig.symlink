@@ -19,7 +19,7 @@
 [merge]
 	tool = fugitive
 [mergetool.fugitive]
-	cmd = vim -f -c "Gdiff" "$MERGED"
+	cmd = vim -f -c "Gdiffsplit!" "$MERGED"
 [user]
 	name = Stephen Marquis
 	email = marquissm@gmail.com
