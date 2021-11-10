@@ -10,6 +10,8 @@
 	date = local
 [color]
 	ui = true
+[fetch]
+  prune = true
 [diff]
 	tool = vdiff
 [difftool]

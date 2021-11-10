@@ -33,8 +33,8 @@ setopt MENUCOMPLETE
 export WORDCHARS=${WORDCHARS:s,/,,}
 export HOSTNAME="`hostname`"
 export PAGER='less'
-export SVN_EDITOR='vim'
-export EDITOR='vim'
+export SVN_EDITOR='nvim'
+export EDITOR='nvim'
 
 # Set/unset  shell options
 unsetopt correct_all

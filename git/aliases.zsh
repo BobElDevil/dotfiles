@@ -57,9 +57,6 @@ function gitupdatebases() {
 }
 
 function gitcleanup() { 
-    echo "=== Cleaning Remote Branch Caches ==="
-    git remote prune origin
-
     echo "=== Cleaning Local Branches ========="
     except_branches=('"\*"' '"\+"' '" main$"')
     command="git branch --merged"

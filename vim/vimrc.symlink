@@ -5,11 +5,12 @@ runtime ftplugin/man.vim
 set tags+=~/.vim/systags
 set laststatus=2
 set directory=~/.vim/swapfiles//
+set encoding=utf-8
+set fileencoding=utf-8
 
 syntax on 
 map <silent> ,b :call BufferList()<CR>
 map <silent> ,d :NERDTreeToggle<CR>
-imap ,, <Esc>
 imap <Nul> <C-X><C-O>
 
 noremap <Space> <PageDown>
@@ -88,7 +89,7 @@ let perl_extended_vars = 1
 
 call plug#begin()
 Plug 'keith/swift.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'roblillack/vim-bufferlist'
 Plug 'tpope/vim-fugitive'
 Plug 'unblevable/quick-scope'
