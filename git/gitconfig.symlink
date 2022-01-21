@@ -1,3 +1,5 @@
+[advice]
+  skippedCherryPicks = false
 [alias]
 	st = status
 	co = checkout
