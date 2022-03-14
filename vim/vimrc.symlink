@@ -13,8 +13,6 @@ map <silent> ,b :call BufferList()<CR>
 map <silent> ,d :NERDTreeToggle<CR>
 imap <Nul> <C-X><C-O>
 
-noremap <Space> <PageDown>
-noremap - <PageUp>
 map grc :execute "vimgrep /" . expand("<cword>") . "/j **/*.c"<CR>
 map grh :execute "vimgrep /" . expand("<cword>") . "/j **/*.h"<CR>
 map ,v :sp ~/.vimrc<CR>
