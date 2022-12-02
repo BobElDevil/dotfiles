@@ -30,9 +30,9 @@ function gitupdatebases() {
      for branch in $basis_branches; do
          echo "Checking $branch"
          # verify it exists
-         git show-ref --verify --quiet refs/heads/"$branch"
+         git show-ref --verify --quiet "refs/remotes/origin/$branch"
          if [ $? -ne 0 ]; then
-             echo "Not found in refs"
+             echo "Remote branch not found for '$branch'"
              continue
          fi
  
@@ -44,9 +44,21 @@ function gitupdatebases() {
          fi
  
          # Change the branch ref to point to the new one
-         echo "Updating $branch to origin/$branch"
+         echo "Updating '$branch' to 'origin/$branch'"
          git update-ref refs/heads/"$branch" origin/"$branch"
      done
+
+     # TODO: Be fancy and lookup the worktrees in 'refs/worktrees', and create a special branch for each one
+     ## Unconditionally set the worktree branch to the latest main
+     #git show-ref --verify --quiet refs/heads/worktree
+     #if [ $? -ne 0 ]; then
+     #  echo "Creating worktree branch off of origin/main"
+     #  git branch worktree origin/main
+     #else
+     #  echo "Updating 'worktree' to 'origin/main'"
+     #  git update-ref refs/heads/worktree origin/main
+     #fi
+
      git checkout -
      git branch -d updatebases_temp
 
