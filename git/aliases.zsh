@@ -92,9 +92,6 @@ function gitcleanup() {
         fi
     done
 
-    echo "=== Pruning local branches ==="
-    git prune
-
     echo "=== Remaining Branches =============="
     git branch
 }
