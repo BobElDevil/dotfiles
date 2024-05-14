@@ -5,9 +5,8 @@
 	co = checkout
 	ci = commit
 	amend = commit --amend
-	continue = rebase --continue
-	skip = rebase --skip
-	root = rev-parse --show-toplevel
+  sync = !av stack sync
+  stackbranch = !av stack branch
 [log]
 	date = local
 [color]
