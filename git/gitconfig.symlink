@@ -7,6 +7,11 @@
 	amend = commit --amend
   sync = !av stack sync
   stackbranch = !av stack branch
+  stackswitch = !av stack switch
+  tree = !av stack tree
+  pr = !av pr
+  next = !av stack next
+  prev = !av stack prev
 [log]
 	date = local
 [color]

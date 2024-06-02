@@ -4,7 +4,20 @@ alias gitpretty="git log --graph --decorate --name-status"
 alias gitprettyall="git log --graph --decorate --name-status --all"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
 alias gitpush="git push -u origin HEAD"
-alias gitwip="git commit --no-verify -a -m 'WIP DO NOT COMMIT'"
+
+readonly WIP_MSG="WIP DO NOT COMMIT"
+
+function gitwip() {
+  prevMsg=`git show -s --format=%s`
+  if [ "$prevMsg" = "$WIP_MSG" ]; then
+    echo "Amending previous commit..."
+    git commit -a --amend --no-edit --no-verify
+  else
+    echo "Creating wip commit"
+    git commit -a -m "$WIP_MSG" --no-verify
+  fi
+}
+
 
 function gitbootstrap() {
      # checkout a temporary branch in case we're currently on main
@@ -60,6 +73,9 @@ function gitcleanup() {
             git branch -D $branch
         fi
     done
+
+    echo "Tidying aviator stacks"
+    av stack tidy
 
     echo "=== Remaining Branches =============="
     git branch
