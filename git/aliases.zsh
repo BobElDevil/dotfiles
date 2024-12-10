@@ -47,7 +47,7 @@ function gitbootstrap() {
      git branch -D updatebases_temp
 
      echo "Syncing aviator stacks"
-     av sync --rebase-to-trunk --push="no" --all --prune="yes"
+     av sync --push="no" --all --prune="yes"
      if [ $? -ne 0 ]; then
        echo "Aviator sync failed, bailing out so you can resolve"
        return
