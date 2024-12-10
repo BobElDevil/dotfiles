@@ -5,13 +5,6 @@
 	co = checkout
 	ci = commit
 	amend = commit --amend
-  sync = !av stack sync
-  stackbranch = !av stack branch
-  stackswitch = !av stack switch
-  tree = !av stack tree
-  pr = !av pr
-  next = !av stack next
-  prev = !av stack prev
 [log]
 	date = local
 [color]
@@ -42,7 +35,7 @@
 	trustctime = false
 	ignorecase = false
 	excludesfile = ~/.gitignore
-	pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+	pager = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
 [credential]
 	helper = osxkeychain
 [push]
@@ -50,7 +43,7 @@
 [rebase]
 	autoStash = true
 [interactive]
-  diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+  diffFilter = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

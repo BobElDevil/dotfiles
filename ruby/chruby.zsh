@@ -1,3 +1,3 @@
 # init according to man page
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+source "$HOMEBREW_PREFIX/share/chruby/chruby.sh"
+source "$HOMEBREW_PREFIX/share/chruby/auto.sh"

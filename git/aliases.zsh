@@ -20,6 +20,8 @@ function gitwip() {
 
 
 function gitbootstrap() {
+     # remove any stale temp branch if needed
+     git branch -D updatebases_temp &>/dev/null || true
      # checkout a temporary branch in case we're currently on main
      git checkout -b updatebases_temp
      git fetch --all
@@ -45,7 +47,11 @@ function gitbootstrap() {
      git branch -D updatebases_temp
 
      echo "Syncing aviator stacks"
-     git sync --trunk --no-push --all --prune
+     av sync --rebase-to-trunk --push="no" --all --prune="yes"
+     if [ $? -ne 0 ]; then
+       echo "Aviator sync failed, bailing out so you can resolve"
+       return
+     fi
 
      gitcleanup
 }
@@ -75,7 +81,7 @@ function gitcleanup() {
     done
 
     echo "Tidying aviator stacks"
-    av stack tidy
+    av tidy
 
     echo "=== Remaining Branches =============="
     git branch
@@ -100,6 +106,6 @@ function gitnewbranch() {
         return
     fi
 
-    git stackbranch  --parent main "$1"
+    av branch --parent main "$1"
 }
     
