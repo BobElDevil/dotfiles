@@ -5,6 +5,8 @@
 	co = checkout
 	ci = commit
 	amend = commit --amend
+	amendall = commit --amend -a --no-edit
+	autosquash = !GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash
 [log]
 	date = local
 [color]
@@ -25,8 +27,10 @@
 	name = Stephen Marquis
 	email = marquissm@gmail.com
 # Conditional config for work specific values. gitignored
-[includeIf "gitdir:~/src/repos/work/"]
-    path = ~/.work-gitconfig
+[includeIf "gitdir:~/src/repos/work-coda/"]
+    path = ~/.coda-gitconfig
+[includeIf "gitdir:~/src/repos/work-grammarly/"]
+    path = ~/.grammarly-gitconfig
 [help]
 	autocorrect = 1
 [rerere]
