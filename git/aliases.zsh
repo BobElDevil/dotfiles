@@ -1,5 +1,5 @@
 alias gitoneline="git log --graph --decorate --pretty=format:\"%C(auto)%h%d %Cblue%an%Creset: %C(auto)%s\""
-alias gitonelineall="git log --graph --decorate --all --pretty=format:\"%C(auto)%h%d %Cblue%an%Creset: %C(auto)%s\""
+alias gitonelineall="git log --graph --decorate --branches --pretty=format:\"%C(auto)%h%d %Cblue%an%Creset: %C(auto)%s\""
 alias gitpretty="git log --graph --decorate --name-status"
 alias gitprettyall="git log --graph --decorate --name-status --all"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
