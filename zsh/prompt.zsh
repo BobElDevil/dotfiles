@@ -29,7 +29,7 @@ LANG='en_US.UTF-8'
 LC_CTYPE=C
 DISPLAY=:0
 
-export PS1='[$PR_RED%n$PR_NO_COLOR@$PR_YELLOW%U%m%u$PR_NO_COLOR:$PR_RED%2c$PR_GREEN($(git_get_branch))$PR_NO_COLOR]%(!.#.$) '
+export PS1='[$PR_RED%n$PR_NO_COLOR@$PR_YELLOW%U%m%u$PR_NO_COLOR:$PR_RED%2c$PR_GREEN($(vcs_get_location))$PR_NO_COLOR]%(!.#.$) '
 
 export LSCOLORS=bxfxdxexcxgxgaabagacad
 export CLICOLOR=true
