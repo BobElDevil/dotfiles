@@ -1,7 +1,7 @@
 alias gitoneline="git log --graph --decorate --pretty=format:\"%C(auto)%h%d %Cblue%an%Creset: %C(auto)%s\""
 alias gitonelineall="git log --graph --decorate --branches --pretty=format:\"%C(auto)%h%d %Cblue%an%Creset: %C(auto)%s\""
 alias gitpretty="git log --graph --decorate --name-status"
-alias gitprettyall="git log --graph --decorate --name-status --all"
+alias gitprettyall="git log --graph --decorate --name-status --branches"
 alias gitreset="git reset HEAD\^" # convenience function to go back one commit
 alias gitpush="git push -u origin HEAD"
 
@@ -46,11 +46,15 @@ function gitbootstrap() {
      git checkout main 
      git branch -D updatebases_temp
 
-     echo "Syncing aviator stacks"
-     av sync --push="no" --all --prune="yes"
-     if [ $? -ne 0 ]; then
-       echo "Aviator sync failed, bailing out so you can resolve"
-       return
+     
+     if [ -d "./.git/av" ]; then
+
+       echo "Syncing aviator stacks"
+       av sync --push="no" --all --prune="yes"
+       if [ $? -ne 0 ]; then
+         echo "Aviator sync failed, bailing out so you can resolve"
+         return
+       fi
      fi
 
      gitcleanup
@@ -80,8 +84,10 @@ function gitcleanup() {
         fi
     done
 
-    echo "Tidying aviator stacks"
-    av tidy
+    if [ -d "./.git/av" ]; then 
+      echo "Tidying aviator stacks"
+      av tidy
+    fi
 
     echo "=== Remaining Branches =============="
     git branch
