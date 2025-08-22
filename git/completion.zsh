@@ -1,1 +1,1 @@
-source <(av completion zsh)
+source <(gh completion --shell zsh)
