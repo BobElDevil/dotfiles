@@ -5,20 +5,26 @@ function parse_git_branch() {
 }
 
 function parse_jj_changeId() {
-  jj show 2> /dev/null | grep "Change ID:" | sed -e 's/Change ID: //' | cut -c 1-8
+  # TODO: Non performant
+  #  jj show --no-patch 2> /dev/null | grep "Change ID:" | sed -e 's/Change ID: //' | cut -c 1-8
+  echo "jj"
 }
 
 function vcs_compute_location() {
-  local GIT_BRANCH="$(parse_git_branch)"
-  local JJ_CHANGE="$(parse_jj_changeId)"
 
+  local JJ_CHANGE="$(parse_jj_changeId)"
   if [ -n "$JJ_CHANGE" ]; then
     export __CURRENT_VCS_LOCATION="$JJ_CHANGE"
-  elif [ -n "$GIT_BRANCH" ]; then
-    export __CURRENT_VCS_LOCATION="$GIT_BRANCH"
-  else
-    export __CURRENT_VCS_LOCATION=""
+    return
   fi
+
+  local GIT_BRANCH="$(parse_git_branch)"
+  if [ -n "$GIT_BRANCH" ]; then
+    export __CURRENT_VCS_LOCATION="$GIT_BRANCH"
+    return
+  fi
+
+  export __CURRENT_VCS_LOCATION=""
 }
 
 typeset -ga chpwd_functions
