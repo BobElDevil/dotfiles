@@ -1,0 +1,47 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[aliases]
+nb = ["bookmark", "create", "-r", "nonempty_head()"]
+log-summ = ["log", "-r", "main..@", "--summary"]
+bootstrap = ["util", "exec", "--", "bash", "-c", """
+jj git fetch
+jj new main
+""", ""]
+stack-shift = ["util", "exec", "--", "bash", "-c", """
+rebase_ops=$(jj log -r "stack_root()+" -G -T "change_id")
+jj git fetch
+jj rebase -s "${rebase_ops}" -d main
+""", ""]
+pre-push = ["util", "exec", "--", "git", "hook", "run", "pre-push"]
+
+[user]
+name = "Stephen Marquis"
+email = "steve.marquis@grammarly.com"
+
+[revset-aliases]
+'important_heads()' = "@|mutable()|bookmarks()|tracked_remote_bookmarks()"
+'bookmark_branches()' = "parents(trunk()..important_heads())|trunk()..important_heads()|trunk()"
+'current_stack_branches()' = "(main..@)&bookmarks()"
+'stack_root()' = 'roots(current_stack_branches())'
+'nonempty_head()' = "heads(::@&~empty())"
+[revsets]
+log = "bookmark_branches()"
+bookmark-advance-to = "nonempty_head()"
+
+[colors]
+"diff token" = { reverse = true }
+
+[ui]
+diff-editor = ":builtin"
+merge-editor = "diffconflicts"
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = [
+    "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
+    "-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right",
+]
+merge-tool-edits-conflict-markers = true
+
+[fsmonitor]
+backend = "watchman"

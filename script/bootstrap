@@ -102,24 +102,58 @@ link_file () {
   fi
 }
 
+install_nest_dir () {
+  local src_dir=$1 dst_dir=$2
+
+  if [ ! -d "$dst_dir" ]; then
+    mkdir -p "$dst_dir"
+    success "created $dst_dir"
+  fi
+
+  for src in "$src_dir"/*; do
+    [ -e "$src" ] || continue
+    local basename=$(basename "$src")
+    local ext="${basename##*.}"
+    local name="${basename%.*}"
+
+    if [ "$ext" = "symlink" ]; then
+      link_file "$src" "$dst_dir/$name"
+    elif [ "$ext" = "nest" ] && [ -d "$src" ]; then
+      install_nest_dir "$src" "$dst_dir/$name"
+    fi
+  done
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -name '*.symlink')
+  for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -name '*.symlink' -not -path '*/*.nest/*')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
 
+  for src in $(find "$DOTFILES_ROOT/" -maxdepth 2 -type d -name '*.nest' -not -path '*/*.nest/*')
+  do
+    local nest_name=$(basename "${src%.*}")
+    install_nest_dir "$src" "$HOME/.$nest_name"
+  done
+
   # Local files, not tracked in the repository
   local local_dotfiles="$DOTFILES_ROOT/local-dotfiles"
   if [ -d "$local_dotfiles" ]; then
-	  for src in $(find "$local_dotfiles" -maxdepth 2 -name '*.symlink')
+	  for src in $(find "$local_dotfiles" -maxdepth 2 -name '*.symlink' -not -path '*/*.nest/*')
 	  do
 		  dst="$HOME/.$(basename "${src%.*}")"
 		  link_file "$src" "$dst"
+	  done
+
+	  for src in $(find "$local_dotfiles" -maxdepth 2 -type d -name '*.nest' -not -path '*/*.nest/*')
+	  do
+		  local nest_name=$(basename "${src%.*}")
+		  install_nest_dir "$src" "$HOME/.$nest_name"
 	  done
   fi
 
