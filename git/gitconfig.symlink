@@ -27,10 +27,8 @@
 	name = Stephen Marquis
 	email = marquissm@gmail.com
 # Conditional config for work specific values. gitignored
-[includeIf "gitdir:~/src/repos/work-coda/"]
-    path = ~/.coda-gitconfig
-[includeIf "gitdir:~/src/repos/work-grammarly/"]
-    path = ~/.grammarly-gitconfig
+[includeIf "gitdir:~/src/repos/work/"]
+    path = ~/.work-gitconfig
 [help]
 	autocorrect = 1
 [rerere]
