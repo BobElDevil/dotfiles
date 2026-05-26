@@ -13,6 +13,7 @@ jj git fetch
 jj rebase -s "${rebase_ops}" -d main
 """, ""]
 pre-push = ["util", "exec", "--", "git", "hook", "run", "pre-push"]
+squash-restore = ["squash", "-f", "@", "-t", "@-", "--restore-descendants"]
 
 [user]
 name = "Stephen Marquis"
