@@ -8,12 +8,17 @@ jj git fetch
 jj new main
 """, ""]
 stack-shift = ["util", "exec", "--", "bash", "-c", """
-rebase_ops=$(jj log -r "stack_root()+" -G -T "change_id")
+rebase_changes=$(jj log -r "stack_root()+" -G -T "change_id")
 jj git fetch
-jj rebase -s "${rebase_ops}" -d main
+jj rebase -s "${rebase_changes}" -d main
 """, ""]
 pre-push = ["util", "exec", "--", "git", "hook", "run", "pre-push"]
-squash-restore = ["squash", "-f", "@", "-t", "@-", "--restore-descendants"]
+squash-restore = ["restore", "-f", "@", "-t", "@-", "--restore-descendants"]
+op-gc = ["util", "exec", "--", "bash", "-c", """
+latest_op=$(jj op log -n 250 --reversed -G -T 'id.short() ++ "\n"' | head -1)
+jj op abandon "..$latest_op"
+jj util gc
+""", ""]
 
 [user]
 name = "Stephen Marquis"
